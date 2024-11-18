@@ -64,14 +64,13 @@ jobs:
     #
     #
     #
-
-    - name: End Sonar Analysis
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-
     - name: Build project
       run: dotnet build ${{ vars.CSPROJ_PATH }} --framework net8.0
 
     - name: test
       run: dotnet test ./Pipeline/Pipeline.sln --framework net8.0
+
+    - name: End Sonar Analysis
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
